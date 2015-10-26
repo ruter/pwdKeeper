@@ -70,7 +70,7 @@ function showPwdList() {
 	// 处理单条数据的展示
 	for (var item in pwdList) {
 		var obj = JSON.parse(pwdList[item]);
-		var str = "<p>" + obj.account + " " + obj.password + " " + obj.tag "</p>";
+		var str = "<p>" + obj.account + " " + obj.password + " " + obj.tag + "</p>";
 		$("#show").append(str);
 	}
 }
