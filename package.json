@@ -1,0 +1,18 @@
+{
+    "main": "index.html",
+    "name": "Password Keeper",
+    "description": "Save your password",
+    "version": "0.1.0",
+    "window": {
+        "title": "Demo",
+        "toolbar": true,
+        "debug": true,
+        "resizable": true,
+        "width": 900,
+        "height": 600,
+        "min_width": 900,
+        "min_height": 600,
+        "max_width": 900,
+        "max_height": 600
+    }
+}

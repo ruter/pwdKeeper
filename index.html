@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Fullscreen Layout with Page Transitions</title>
+		<meta name="description" content="Fullscreen Layout with Page Transitions" />
+		<meta name="keywords" content="fullscreen layout, boxes, responsive, page transitions, css transitions, jquery, portfolio, template" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico"> 
+		<link rel="stylesheet" href="res/amazeui.min.css">
+		<link rel="stylesheet" type="text/css" href="res/component.css" />
+		<script src="res/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container">	
+			<div id="bl-main" class="bl-main bl-expand-item">
+				<section>
+					<div class="bl-box">
+						<h2 class="bl-icon am-icon-user-plus">New</h2>
+					</div>
+					<div class="bl-content am-form am-u-sm-6 am-u-sm-centered">
+						<h2>Add a new account</h2>
+						<form id="addPwdForm">
+                			<div class="am-input-group am-input-group-secondary">
+		                    	<span class="am-input-group-label">
+		                    		<i class="am-icon-user"></i>
+		                    	</span>
+		                    <input type="text" class="am-form-field" name="account" id="account" placeholder="Account">
+		                	</div> <br>
+		                	<div class="am-input-group am-input-group-secondary">
+		                    	<span class="am-input-group-label">
+		                    		<i class="am-icon-eye"></i>
+		                    	</span>
+		                    <input type="text" class="am-form-field" name="password" id="newPwd" placeholder="Password">
+		                	</div> <br>
+			                <div class="am-input-group am-input-group-secondary">
+			                    <span class="am-input-group-label">
+			                    	<i class="am-icon-tags"></i>
+			                    </span>
+			                    <input type="text" class="am-form-field" name="tag" id="comment" placeholder="Tag">
+			                </div> <br>
+            			</form>
+            			<div class="am-input-group">
+	                    	<button class="am-btn am-btn-secondary am-btn-xs" onclick="writePwdList()">Submit</button>
+	                    	<p style="display: none;" id="addHint">Success!</p>
+	                	</div>
+					</div>
+					<span class="bl-icon bl-icon-close"></span>
+				</section>
+				<section>
+					<div class="bl-box">
+						<h2 class="bl-icon bl-icon-works">Secret</h2>
+					</div>
+					<div class="bl-content">
+						<h2>Account List</h2>
+						<p>Mung bean maize dandelion sea lettuce catsear bunya nuts ricebean tatsoi caulie horseradish pea.</p>
+					</div>
+					<span class="bl-icon bl-icon-close"></span>
+				</section>
+				<section>
+					<div class="bl-box">
+						<h2 class="bl-icon am-icon-cogs">Setting</h2>
+					</div>
+					<div class="bl-content">
+						<div class="am-u-sm-5 am-u-sm-centered" id="cg-hint">
+							<h1>Setting a new password</h1>
+						</div>
+						<div class="am-form-inline" id="login">
+							<div class="am-input-group am-input-group-primary am-input-group-lg am-u-sm-6 am-u-sm-centered">
+								<span class="am-input-group-label"><i class="am-icon-lock"></i></span>
+								<input type="password" class="am-form-field am-text-center" placeholder="Password" id="changePwd">
+							</div>
+							<div class="am-input-group am-input-group-lg" id="login-btn">
+								<button type="submit" class="am-btn am-btn-primary am-btn-xs am-badge am-badge-primary am-text-default" onclick="changePwd()">
+								<i class="am-icon-check-circle-o"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<span class="bl-icon bl-icon-close"></span>
+				</section>
+				<!-- 密码登录页 -->
+				<section class="bl-expand bl-expand-top" id="bl-login">
+					<div class="bl-content">
+						<div class="am-u-sm-5 am-u-sm-centered am-hide" id="hint">
+							<h1>You did not set your password.</h1>
+							<p>Please enter a password, and start to use me :)</p>
+						</div>
+						<div class="am-u-sm-5 am-u-sm-centered am-hide" id="lg-hint"><h1>Enter password & login to use.</h1></div>
+						<div class="am-form-inline" id="login">
+							<div class="am-input-group am-input-group-secondary am-input-group-lg am-u-sm-6 am-u-sm-centered" id="lg-field">
+								<span class="am-input-group-label"><i class="am-icon-lock"></i></span>
+								<input type="password" class="am-form-field am-text-center" id="pwd" placeholder="Password">
+							</div>
+							<div class="am-input-group am-input-group-lg" id="login-btn">
+								<button type="submit" class="am-btn am-btn-secondary am-btn-xs am-badge am-badge-secondary am-text-default" onclick="checkPwd()">
+								<i class="am-icon-arrow-circle-o-right"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- Panel items for the works -->
+				<div class="bl-panel-items" id="bl-panel-work-items">
+					<div data-panel="panel-1">
+						<div>
+							<img src="images/1.jpg" />
+							<h3>Fixie bespoke</h3>
+							<p>Iphone artisan direct trade ethical Austin. Fixie bespoke banh mi ugh, deep v vinyl hashtag. Tumblr gentrify keffiyeh pop-up iphone twee biodiesel. Occupy american apparel freegan cliche. Mustache trust fund 8-bit jean shorts mumblecore thundercats. Pour-over small batch forage cray, banjo post-ironic flannel keffiyeh cred ethnic semiotics next level tousled fashion axe. Sustainable cardigan keytar fap bushwick bespoke.</p>
+						</div>
+					</div>
+					<div data-panel="panel-2">
+						<div>
+							<img src="images/2.jpg" />
+							<h3>Chillwave mustache</h3>
+							<p>Squid vinyl scenester literally pug, hashtag tofu try-hard typewriter polaroid craft beer mlkshk cardigan photo booth PBR. Chillwave 90's gentrify american apparel carles disrupt. Pinterest semiotics single-origin coffee craft beer thundercats irony, tumblr bushwick intelligentsia pickled. Narwhal mustache godard master cleanse street art, occupy ugh selfies put a bird on it cray salvia four loko gluten-free shoreditch.</p>
+						</div>
+					</div>
+					<div data-panel="panel-3">
+						<div>
+							<img src="images/3.jpg" />
+							<h3>Austin hella</h3>
+							<p>Ethical cray wayfarers leggings vice, seitan banksy small batch ethnic master cleanse. Pug chillwave etsy, scenester meh occupy blue bottle tousled blog tonx pinterest selvage mixtape swag cosby sweater. Synth tousled direct trade, hella Austin craft beer ugh chambray.</p>
+						</div>
+					</div>
+					<div data-panel="panel-4">
+						<div>
+							<img src="images/4.jpg" />
+							<h3>Brooklyn dreamcatcher</h3>
+							<p>Fashion axe 90's pug fap. Blog wayfarers brooklyn dreamcatcher, bicycle rights retro YOLO. Wes anderson lomo 90's food truck 3 wolf moon, twee jean shorts. Iphone small batch twee wolf yr before they sold out. Brooklyn echo park cred, portland pug selvage flannel seitan tousled mcsweeney's.</p>
+						</div>
+					</div>
+					<nav>
+						<span class="bl-next-work">&gt; Next Project</span>
+						<span class="bl-icon bl-icon-close"></span>
+					</nav>
+				</div>
+			</div>
+		</div><!-- /container -->
+		<script src="res/jquery.min.js"></script>
+		<script src="res/boxlayout.js"></script>
+		<script src="main.js"></script>
+	</body>
+</html>
