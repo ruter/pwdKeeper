@@ -242,6 +242,26 @@ div.bl-panel-items > div > div {
 	line-height: 1.8;
 }
 
+.bl-content .item div {
+	display:inline-block;
+}
+
+.bl-content .item .am-u-sm-1 {
+	padding-left: 0.5rem;
+	padding-right: 1.8rem;
+}
+
+.bl-content .item .am-u-sm-2 {
+	padding-left: 1.0rem;
+	padding-right: 1.0rem;
+}
+
+.bl-content .itemText {
+	font-size: 1.3em;
+	line-height: 1.2;
+	padding: 0;
+}
+
 .bl-content h2 {
 	font-size: 3em;
 	font-weight: 300;
