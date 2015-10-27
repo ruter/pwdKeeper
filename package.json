@@ -5,9 +5,10 @@
     "version": "0.1.0",
     "window": {
         "title": "Demo",
+        "icon": "icon.png",
         "toolbar": true,
         "debug": true,
-        "resizable": true,
+        "resizable": false,
         "width": 900,
         "height": 600,
         "min_width": 900,

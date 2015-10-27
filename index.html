@@ -4,11 +4,13 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-		<title>Fullscreen Layout with Page Transitions</title>
+		<title>PwdKeeper</title>
 		<meta name="description" content="Fullscreen Layout with Page Transitions" />
 		<meta name="keywords" content="fullscreen layout, boxes, responsive, page transitions, css transitions, jquery, portfolio, template" />
 		<meta name="author" content="Codrops" />
-		<!-- <link rel="shortcut icon" href="../favicon.ico">  -->
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="res/iosOverlay.css">
+		<link rel="stylesheet" href="res/prettify.css">
 		<link rel="stylesheet" href="res/amazeui.min.css">
 		<link rel="stylesheet" type="text/css" href="res/component.css" />
 		<script src="res/modernizr.custom.js"></script>
@@ -56,71 +58,7 @@
 					<div class="bl-content">
 						<h2>Account List</h2>
 						<ul id="items" class="items am-text-center">
-							<li class="item">
-								<span class="am-text-sm">QQ</span> <br>
-								<div class="am-g am-text-left">
-								<i class="am-icon-user am-u-sm-2"></i>
-								<p class="itemText am-u-sm-8 am-text-truncate">123456789000000</p>
-								<i class="am-icon-edit am-u-sm-1"></i>
-								</div> <br>
-								<div class="am-g am-text-left">
-								<i class="am-icon-lock am-u-sm-2"></i>
-								<p class="itemText am-u-sm-8 am-text-truncate">1234567</p>
-								<i class="am-icon-edit am-u-sm-1"></i>
-								</div>
-							</li>
-							<li class="item">
-								<span class="am-text-sm">QQ</span> <br>
-								<div class="am-g am-text-left">
-								<i class="am-icon-user am-u-sm-2"></i>
-								<p class="itemText am-u-sm-8 am-text-truncate">123456789000000</p>
-								<i class="am-icon-edit am-u-sm-1"></i>
-								</div> <br>
-								<div class="am-g am-text-left">
-								<i class="am-icon-lock am-u-sm-2"></i>
-								<p class="itemText am-u-sm-8 am-text-truncate">1234567</p>
-								<i class="am-icon-edit am-u-sm-1"></i>
-								</div>
-							</li>
-							<li class="item">
-								<span class="am-text-sm">QQ</span> <br>
-								<div class="am-g am-text-left">
-								<i class="am-icon-user am-u-sm-2"></i>
-								<p class="itemText am-u-sm-8 am-text-truncate">123456789000000</p>
-								<i class="am-icon-edit am-u-sm-1"></i>
-								</div> <br>
-								<div class="am-g am-text-left">
-								<i class="am-icon-lock am-u-sm-2"></i>
-								<p class="itemText am-u-sm-8 am-text-truncate">1234567</p>
-								<i class="am-icon-edit am-u-sm-1"></i>
-								</div>
-							</li>
-							<li class="item">
-								<span class="am-text-sm">QQ</span> <br>
-								<div class="am-g am-text-left">
-								<i class="am-icon-user am-u-sm-2"></i>
-								<p class="itemText am-u-sm-8 am-text-truncate">123456789000000</p>
-								<i class="am-icon-edit am-u-sm-1"></i>
-								</div> <br>
-								<div class="am-g am-text-left">
-								<i class="am-icon-lock am-u-sm-2"></i>
-								<p class="itemText am-u-sm-8 am-text-truncate">1234567</p>
-								<i class="am-icon-edit am-u-sm-1"></i>
-								</div>
-							</li>
-							<li class="item">
-								<span class="am-text-sm">QQ</span> <br>
-								<div class="am-g am-text-left">
-								<i class="am-icon-user am-u-sm-2"></i>
-								<p class="itemText am-u-sm-8 am-text-truncate">123456789000000</p>
-								<i class="am-icon-edit am-u-sm-1"></i>
-								</div> <br>
-								<div class="am-g am-text-left">
-								<i class="am-icon-lock am-u-sm-2"></i>
-								<p class="itemText am-u-sm-8 am-text-truncate">1234567</p>
-								<i class="am-icon-edit am-u-sm-1"></i>
-								</div>
-							</li>
+						<!-- The account list -->
 						</ul>
 					</div>
 					<span class="bl-icon bl-icon-close"></span>
@@ -170,9 +108,11 @@
 				</section>
 			</div>
 		</div><!-- /container -->
-		<script src="res/slidemenu.js"></script>
 		<script src="res/jquery.min.js"></script>
 		<script src="res/boxlayout.js"></script>
+		<script src="res/clipboard.min.js"></script>
+		<script src="res/iosOverlay.js"></script>
+		<script src="res/prettify.js"></script>
 		<script src="main.js"></script>
 	</body>
 </html>

@@ -14,6 +14,17 @@ $("#bl-login").keydown(function(event) {
 	}
 });
 
+var clipboard = new Clipboard('.am-icon-clipboard');
+clipboard.on('success', function(e) {
+	e.clearSelection();
+	iosOverlay({
+		text: "Copied!",
+		duration: 1000,
+		icon: ""
+	});
+});
+
+
 function didRegister() {
 	// 读取Verify并解析json数据
 	// 判定是否为NULL，是则弹出初始密码设置窗口，否则显示密码输入页面
@@ -54,6 +65,7 @@ function checkPwd() {
 		$("#bl-main").removeClass("bl-expand-item");
 		$("#bl-login").removeClass("bl-expand bl-expand-top");
 		$("#bl-login").addClass("bl-login");
+		showPwdList();
 	} else {
 		// Warning
 		// 添加延时执行，当shake完毕之后再执行remove
@@ -70,8 +82,19 @@ function showPwdList() {
 	// 处理单条数据的展示
 	for (var item in pwdList) {
 		var obj = JSON.parse(pwdList[item]);
-		var str = "<p>" + obj.account + " " + obj.password + " " + obj.tag + "</p>";
-		$("#show").append(str);
+		var str = ['<li class="item">',
+					'<span class="am-text-sm">' + obj.tag +'</span> <br>',
+					'<div class="am-g am-text-left">',
+					'<i class="am-icon-user am-u-sm-2"></i>',
+					'<p class="itemText am-u-sm-8 am-text-truncate">' + obj.account + '</p>',
+					'<i class="am-icon-edit am-u-sm-1"></i>',
+					'</div> <br>',
+					'<div class="am-g am-text-left">',
+					'<i class="am-icon-lock am-u-sm-2"></i>',
+					'<p class="itemText am-u-sm-8 am-text-truncate">' + obj.password + '</p>',
+					'<i class="am-icon-clipboard am-u-sm-1"}" data-clipboard-text="' + obj.password + '"></i>',
+					'</div></li>'].join("");
+		$("#items").append(str);
 	}
 }
 
@@ -111,5 +134,4 @@ function writePwdList() {
 	$("#addHint").delay(1500).fadeOut();
 }
 
-// showPwdList();
 didRegister();
