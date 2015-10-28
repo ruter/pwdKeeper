@@ -24,7 +24,6 @@ clipboard.on('success', function(e) {
 	});
 });
 
-
 function didRegister() {
 	// 读取Verify并解析json数据
 	// 判定是否为NULL，是则弹出初始密码设置窗口，否则显示密码输入页面
@@ -82,13 +81,17 @@ function showPwdList() {
 	var pwdList = readPwdList();
 	// 处理单条数据的展示
 	for (var item in pwdList) {
+		if (pwdList[item] == "") {
+			continue
+		}
 		var obj = JSON.parse(pwdList[item]);
+		console.info(obj);
 		var str = ['<li class="item">',
-					'<span class="am-text-sm">' + obj.tag +'</span> <br>',
+					'<span class="am-text-sm am-text-truncate">' + obj.tag +'</span> <br>',
 					'<div class="am-g am-text-left">',
 					'<i class="am-icon-user am-u-sm-2"></i>',
 					'<p class="itemText am-u-sm-8 am-text-truncate">' + obj.account + '</p>',
-					'<i class="am-icon-edit am-u-sm-1"></i>',
+					'<i class="am-icon-trash am-u-sm-1" value="' + item + '"></i>',
 					'</div> <br>',
 					'<div class="am-g am-text-left">',
 					'<i class="am-icon-lock am-u-sm-2"></i>',
@@ -96,7 +99,36 @@ function showPwdList() {
 					'<i class="am-icon-clipboard am-u-sm-1"}" data-clipboard-text="' + obj.password + '"></i>',
 					'</div></li>'].join("");
 		$("#items").append(str);
+		console.log(item);
 	}
+
+	$(".am-icon-clipboard").mouseover(function() {
+		$(this).popover({
+			content: "Copy",
+			trigger: "hover"
+		})
+	});
+
+	$(".am-icon-trash").mouseover(function() {
+		$(this).popover({
+			content: "Delete",
+			trigger: "hover"
+		})
+	});
+
+	$(".am-icon-trash").click(function() {
+		var item = $(this).attr("value");
+		delAcc(item);
+		$(this).parents("li.item").fadeOut(500);
+		setTimeout(function(){
+			$(this).parents("li.item").remove();
+		}, 1000);
+		iosOverlay({
+			text: "Deleted!",
+			duration: 1000,
+			icon: ""
+		});
+	});
 }
 
 function readPwdList() {
@@ -104,9 +136,7 @@ function readPwdList() {
 	var data = fs.readFileSync('PwdList').toString();
 	var accList = new Array();
 	accList = data.split("\r");
-	for (var i in accList) {
-		console.log("data" + i + accList[i]);
-	}
+	console.log(accList);
 	return accList;
 }
 
@@ -142,6 +172,24 @@ function writePwdList() {
 	 .removeAttr('checked')
 	 .removeAttr('selected');
 
+	var t = setTimeout(function() {
+		$("#items").empty();
+		showPwdList();
+		clearTimeout(t);
+	}, 1000);
+}
+
+function delAcc(item) {
+	var dataList = readPwdList();
+	console.log(dataList);
+	dataList.splice(item, 1);
+	var data = "";
+	for (var i in dataList) {
+		if (dataList[i] == "") {continue}
+		data = data + dataList[i] + '\r';
+	}
+	console.log(data);
+	fs.writeFileSync('PwdList', data);
 	var t = setTimeout(function() {
 		$("#items").empty();
 		showPwdList();
