@@ -65,6 +65,7 @@ function checkPwd() {
 		$("#bl-main").removeClass("bl-expand-item");
 		$("#bl-login").removeClass("bl-expand bl-expand-top");
 		$("#bl-login").addClass("bl-login");
+		// 显示账户列表
 		showPwdList();
 	} else {
 		// Warning
@@ -91,7 +92,7 @@ function showPwdList() {
 					'</div> <br>',
 					'<div class="am-g am-text-left">',
 					'<i class="am-icon-lock am-u-sm-2"></i>',
-					'<p class="itemText am-u-sm-8 am-text-truncate">' + obj.password + '</p>',
+					'<p class="itemText am-u-sm-8">••••••••</p>',
 					'<i class="am-icon-clipboard am-u-sm-1"}" data-clipboard-text="' + obj.password + '"></i>',
 					'</div></li>'].join("");
 		$("#items").append(str);
@@ -129,9 +130,23 @@ function writePwdList() {
 		fs.closeSync(fd);
 	});
 	// 添加成功提示
-	$("#addHint").removeClass('am-hide');
-	$("#addHint").delay(300).fadeIn();
-	$("#addHint").delay(1500).fadeOut();
+	iosOverlay({
+		text: "Success!",
+		duration: 1000,
+		icon: ""
+	});
+	// 清空表单
+	$(':input','#addPwdForm')  
+	 .not(':button, :submit, :reset, :hidden')  
+	 .val('') 
+	 .removeAttr('checked')
+	 .removeAttr('selected');
+
+	var t = setTimeout(function() {
+		$("#items").empty();
+		showPwdList();
+		clearTimeout(t);
+	}, 1000);
 }
 
 didRegister();
