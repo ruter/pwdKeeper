@@ -45,8 +45,22 @@ function setPwd(password) {
 }
 
 function changePwd() {
-	setPwd($("#changePwd").val());
-	$("#cg-hint h1").html("Success :-)");
+	var newPwd = $("#changePwd").val();
+	if (newPwd == "") {
+		iosOverlay({
+		text: "Failure!",
+		duration: 1000,
+		icon: ""
+		});
+	} else {
+		setPwd(newPwd);
+		$("#changePwd").val("");
+		iosOverlay({
+			text: "Success!",
+			duration: 1000,
+			icon: ""
+		});
+	}
 }
 
 function checkPwd() {
@@ -144,7 +158,11 @@ function writePwdList() {
 	// 新添加内容的处理
 	var data = "";
 	var newData = $("#addPwdForm").serializeArray();
-	console.log(newData[0].name);
+
+	if (newData[0].value == "" || newData[1].value == "" || newData[2].value == "") {
+		return;
+	}
+
 	data = ['\r{"' + newData[0].name + '":"' + newData[0].value + '", ',
 			'"' + newData[1].name + '":"' + newData[1].value + '", ',
 			'"' + newData[2].name + '":"' + newData[2].value,
