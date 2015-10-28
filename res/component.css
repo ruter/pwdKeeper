@@ -149,7 +149,7 @@ a:hover {
 	width:840px; 
 	height:100%; 
 	display:block; 
-	overflow:hidden
+	overflow-y: scroll;
 }
 
 .items li {
