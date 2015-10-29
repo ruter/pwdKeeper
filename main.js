@@ -1,5 +1,20 @@
 var fs = require('fs');
 
+ 
+function encode(data,key){
+	var secret = key || "asdhjwheru*asd123&123";
+    var crypted = CryptoJS.AES.encrypt(data, secret);
+    console.log(crypted);
+    return crypted;
+}  
+
+function decode(data,key){
+	var secret = key || "asdhjwheru*asd123&123";
+	var decrypted = CryptoJS.AES.decrypt(data,secret).toString(CryptoJS.enc.Utf8);
+    console.log(decrypted);
+    return decrypted;
+}  
+
 $(function() {
 				Boxlayout.init();
 			});
@@ -98,7 +113,9 @@ function showPwdList() {
 		if (pwdList[item] == "") {
 			continue
 		}
-		var obj = JSON.parse(pwdList[item]);
+		var data = decode(pwdList[item], '');
+		console.log(data);
+		var obj = JSON.parse(data);
 		console.info(obj);
 		var str = ['<li class="item">',
 					'<span class="am-text-sm am-text-truncate">' + obj.tag +'</span> <br>',
@@ -167,7 +184,8 @@ function writePwdList() {
 			'"' + newData[1].name + '":"' + newData[1].value + '", ',
 			'"' + newData[2].name + '":"' + newData[2].value,
 			 '"}'].join("");
-
+	// Encrypt
+	data = '\r' + encode(data, '');
 	// 追加模式打开文件写入数据
 	fs.open('PwdList', 'a', function(err, fd) {
 		if (err) {return console.error(err);}
