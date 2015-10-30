@@ -1,5 +1,27 @@
 var fs = require('fs');
+var path = require('path');
 
+var passData = path.join('C:', 'PassKeeper', 'data.dat');
+var verData = path.join('C:', 'PassKeeper', 'Verify.dat');
+var dataDir = path.join('C:', 'PassKeeper');
+// Create dir & files.
+if (!fs.existsSync(dataDir)) {
+	fs.mkdirSync(dataDir);
+	createFile();
+} else {
+	createFile();
+}
+
+function createFile() {
+	if (!fs.existsSync(passData)) {
+		fs.openSync(passData, 'w+');
+		fs.writeFileSync(passData, 'U2FsdGVkX1/IiGxZmy2B7v39Odl9kxyrsanZqTIgE7S5+wyLiw9eHEE7h6vLPdN8U6N/vtr5AlPG5NfXtg8AFkhmK4h2fXnB8Ro3IegVpQw=');
+	}
+	if (!fs.existsSync(verData)) {
+		fs.openSync(verData, 'w+');
+		fs.writeFileSync(verData, 'U2FsdGVkX18ygWe8JB+VZ2xI5/oYKBUk9nxD0H9EnkiVDxeExGNmk5tsBePBlHJL');
+	}
+}
  
 function encode(data,key){
 	var secret = key || "asdhjwheru*asd123&123";
@@ -11,7 +33,6 @@ function encode(data,key){
 function decode(data,key){
 	var secret = key || "asdhjwheru*asd123&123";
 	var decrypted = CryptoJS.AES.decrypt(data,secret).toString(CryptoJS.enc.Utf8);
-    console.log(decrypted);
     return decrypted;
 }  
 
@@ -43,20 +64,22 @@ function didRegister() {
 	// 读取Verify并解析json数据
 	// 判定是否为NULL，是则弹出初始密码设置窗口，否则显示密码输入页面
 	// 同步读取
-	var data = fs.readFileSync('Verify');
+	var data = fs.readFileSync(verData);
+	data = decode(data.toString(), "");
+
 	var obj = JSON.parse(data);
-	if (obj.password === "PWDisNULL*&^%+-_") {
+	if (obj.password === "ThisIsInitPwd") {
 		// Modal to register window.
 		$("#hint").removeClass("am-hide");
 	} else {
 		$("#lg-hint").removeClass("am-hide");
 	}
-	console.log(obj.password);
 }
 
 function setPwd(password) {
 	var str = '{"password":"' + password + '"}';
-	fs.writeFileSync('Verify', str);
+	str = encode(str, "");
+	fs.writeFileSync(verData, str);
 }
 
 function changePwd() {
@@ -79,13 +102,15 @@ function changePwd() {
 }
 
 function checkPwd() {
-	var data = fs.readFileSync('Verify');
+	var data = fs.readFileSync(verData);
+	data = decode(data.toString(), "");
 	var obj = JSON.parse(data);
 	var pwd = $("#pwd").val();
 	// 如果从未设置过密码则进行密码设置
-	if (obj.password === "PWDisNULL*&^%+-_" && pwd != "") {
+	if (obj.password === "ThisIsInitPwd" && pwd != "") {
 		setPwd(pwd);
-		data = fs.readFileSync('Verify');
+		data = fs.readFileSync(verData);
+		data = decode(data.toString(), "");
 		obj = JSON.parse(data);
 	}
 	if (obj.password === pwd) {
@@ -114,9 +139,7 @@ function showPwdList() {
 			continue
 		}
 		var data = decode(pwdList[item], '');
-		console.log(data);
 		var obj = JSON.parse(data);
-		console.info(obj);
 		var str = ['<li class="item">',
 					'<span class="am-text-sm am-text-truncate">' + obj.tag +'</span> <br>',
 					'<div class="am-g am-text-left">',
@@ -130,7 +153,6 @@ function showPwdList() {
 					'<i class="am-icon-clipboard am-u-sm-1"}" data-clipboard-text="' + obj.password + '"></i>',
 					'</div></li>'].join("");
 		$("#items").append(str);
-		console.log(item);
 	}
 
 	$(".am-icon-clipboard").mouseover(function() {
@@ -164,10 +186,9 @@ function showPwdList() {
 
 function readPwdList() {
 	// 同步读取数据
-	var data = fs.readFileSync('PwdList').toString();
+	var data = fs.readFileSync(passData).toString();
 	var accList = new Array();
 	accList = data.split("\r");
-	console.log(accList);
 	return accList;
 }
 
@@ -187,11 +208,10 @@ function writePwdList() {
 	// Encrypt
 	data = '\r' + encode(data, '');
 	// 追加模式打开文件写入数据
-	fs.open('PwdList', 'a', function(err, fd) {
+	fs.open(passData, 'a', function(err, fd) {
 		if (err) {return console.error(err);}
 		// 追加至文件尾部
-		fs.appendFileSync('PwdList', data);
-		console.log("Write successful!");
+		fs.appendFileSync(passData, data);
 		// 关闭文件
 		fs.closeSync(fd);
 	});
@@ -217,7 +237,6 @@ function writePwdList() {
 
 function delAcc(item) {
 	var dataList = readPwdList();
-	console.log(dataList);
 	dataList.splice(item, 1);
 	var data = "";
 	for (var i in dataList) {
@@ -225,7 +244,7 @@ function delAcc(item) {
 		data = data + dataList[i] + '\r';
 	}
 	console.log(data);
-	fs.writeFileSync('PwdList', data);
+	fs.writeFileSync(passData, data);
 	var t = setTimeout(function() {
 		$("#items").empty();
 		showPwdList();
