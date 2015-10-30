@@ -1,13 +1,13 @@
 {
     "main": "index.html",
-    "name": "Password Keeper",
-    "description": "Save your password",
+    "name": "PassKeeper",
+    "description": "Manage your password",
     "version": "0.1.0",
     "window": {
-        "title": "Demo",
+        "title": "PassKeeper",
         "icon": "icon.png",
-        "toolbar": true,
-        "debug": true,
+        "toolbar": false,
+        "debug": false,
         "resizable": false,
         "width": 900,
         "height": 600,
